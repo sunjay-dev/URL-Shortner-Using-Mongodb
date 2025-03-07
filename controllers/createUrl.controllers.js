@@ -3,7 +3,7 @@ const shortid = require('shortid');
 const validator = require('validator');
 
 async function createShortUrl(req, res) {
-
+    
     const {url} = req.body;
     if(!url) return res.status(404).json({ error: "Please provide a url"});
 
@@ -18,7 +18,7 @@ async function createShortUrl(req, res) {
         rand = shortid.generate();
         urlExists = await Store_Url.findOne({ shortId: rand });
     }
-    let targeturl = url.startsWith('http') ? url : `https://${url}`
+    let targeturl = /^https?:\/\//i.test(req.body.url) ? req.body.url : `https://${req.body.url}`;
 
     await Store_Url.create({
         shortId:rand,

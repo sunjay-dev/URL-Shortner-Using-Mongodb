@@ -17,7 +17,7 @@ async function CreateCustomUrl(req,res){
       return res.status(409).send("url already exists");
     }
 
-    let targeturl = req.body.url.startsWith('http') ? req.body.url : `https://${req.body.url}`
+    let targeturl = /^https?:\/\//i.test(req.body.url) ? req.body.url : `https://${req.body.url}`;
 
     await Store_Url.create({
       shortId: rand,
