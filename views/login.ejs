@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/output.css">
     <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-50">
-    
-    <div class="p-6  space-y-4">
-        <a href="/user/auth/google" class="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5">
-            Continue with Google
+
+<body class="font-[Inter] flex items-center justify-center min-h-screen bg-gray-50 relative">
+
+    <!-- GitHub Icon (Top Right) -->
+    <a href="https://github.com/sunjay-dev/URL-Shortner-Using-Mongodb" target="_blank" 
+       class="absolute top-4 right-4 p-2 rounded-ful transition ">
+        <img src="https://cdn.pixabay.com/photo/2022/01/30/13/33/github-6980894_960_720.png" alt="GitHub" class="w-12 rounded-[0.8rem]">
+    </a>
+
+    <div class="p-8 text-center space-y-6 w-96">
+        <!-- Logo -->
+        <img src="/logo.png" alt="App Logo" class="w-24 mx-auto">
+
+        <h2 class="text-xl font-semibold text-gray-800">Welcome to URL Shortener</h2>
+        <p class="text-gray-500">Sign in to continue</p>
+
+        <!-- Google Login -->
+        <a href="/user/auth/google"
+            class="w-full flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-6 h-6">
+            <span class="font-medium">Continue with Google</span>
         </a>
 
-        <a href="/user/auth/github" class="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition">
-            <img src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub" class="w-5 h-5">
-            Continue with GitHub
+        <!-- GitHub Login -->
+        <a href="/user/auth/github"
+            class="w-full flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+            <img src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub" class="w-6 h-6">
+            <span class="font-medium">Continue with GitHub</span>
         </a>
     </div>
 
 </body>
 <script src="/login/script.js"></script>
+
 </html>
