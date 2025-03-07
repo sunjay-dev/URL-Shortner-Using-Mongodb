@@ -12,21 +12,22 @@ passport.use(new GitHubStrategy(
     scope: ["user:email"],
   },
   async (accessToken, refreshToken, profile, done) => {
-
     try {
       let email = profile.emails?.[0]?.value || null;
-      let user = await User.findOne({ email }); 
+      let user = await User.findOne({ email });
 
       if (user) {
+        // Check if GitHub is already linked
         const githubProvider = user.providers.find(p => p.provider === "github");
         if (!githubProvider) {
           user.providers.push({ provider: "github", providerId: profile.id });
           await user.save();
         }
       } else {
+        // If no user exists, create a new one
         user = await User.create({
           username: profile.username,
-          email: email,
+          email,
           profilePicture: profile.photos[0]?.value,
           providers: [{ provider: "github", providerId: profile.id }]
         });

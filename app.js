@@ -18,8 +18,8 @@ app.use(cookieParser())
 app.set('view engine', 'ejs');
 app.set('views', path.resolve("./views"));
 
-const urlRoutes = require('./routes/url.js');
-const userRoutes = require('./routes/user.js');
+const urlRoutes = require('./routes/url.routes.js');
+const userRoutes = require('./routes/user.routes.js');
 
 app.use(urlRoutes);
 app.use('/user', userRoutes);
