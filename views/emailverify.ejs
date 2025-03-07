@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <link rel="stylesheet" href="/emailverify/submitstyle.css"> 
+    <title>Signup Form</title>
+</head>
+<body>
+    <header class="p-3">
+        <div class="container">
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-warning mt-3" id="logOutBtn">Log out</button>
+          </div>
+        </div>
+      </header>
+   
+    <div id="div">
+        <% if (locals.error) { %>
+
+            <div class="alert alert-danger" role="alert">
+                Code is incorrect!
+              </div>
+        <% } %>
+        <form action="/user/verify" method="POST">
+            <h1>Email Verification</h1>
+           <p>A code is sent to your email :  <%= email %> </p> 
+            <input name="otp" placeholder="Verification code" type="numer" class="input">
+            <br>
+            <input type="submit" value="submit" id="button">
+        </form>
+    </div>
+</body>
+<script>
+    document.getElementById('logOutBtn').onclick = () =>	window.location.href=`${window.location.origin}/user/logout`;
+</script>
+</html>

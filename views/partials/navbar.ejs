@@ -1,0 +1,21 @@
+<header class="p-3">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-black text-decoration-none">
+          <img src="/logo.png" alt="Logo" width="60" height="60">
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/" class="nav-link px-2   <%= title === 'home' ? 'text-secondary' : 'text-black' %>">Home</a></li>
+          <li><a href="/custom/" class="nav-link px-2 <%= title === 'custom' ? 'text-secondary' : 'text-black' %>">Custom</a></li>
+          <li><a href="/details/" class="nav-link px-2 <%= title === 'details' ? 'text-secondary' : 'text-black' %>">Details</a></li>
+          <li><a href="/about/" class="nav-link px-2 <%= title === 'about' ? 'text-secondary' : 'text-black' %>">About</a></li>
+          <li><a class="nav-link px-2 text-black <%= title === 'about' ? 'd-none' : '' %>" id="logOutBtn">Log out</a></li>
+        </ul>  
+        <div class="text-end">
+          <!-- <button type="button" class="btn btn-warning <%= title === 'about' ? 'd-none' : '' %>" id="logOutBtn">Log out</button> -->
+          <button type="button" class="btn btn-warning" onclick="window.open('https://github.com/sunjay-dev/URL-Shortener-using-json-file', '_blank')"  title="Go to GitHub">Github <span>&rarr;</span></button>
+        </div>
+      </div>
+    </div>
+</header>
