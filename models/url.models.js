@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const User = require('./user');
+const User = require('./user.models.js');
+
 const urlSchema = new mongoose.Schema({
     shortId: {
         type: String,

@@ -1,4 +1,4 @@
-const Store_Url = require('../models/url');
+const Store_Url = require('../models/url.models.js');
 
 async function redirectUrl(req, res, next) {
 

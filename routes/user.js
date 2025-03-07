@@ -1,21 +1,31 @@
 const express = require('express');
-const {handleUserSignup, handleUserlogin, handleUserVerify} = require('../controllers/user');
 const router = express.Router();
-const {restrictToGuests} = require('../middlewares/auth.js');
+const passport = require("../services/github.auth.services.js");
+const { restrictToGuests } = require('../middlewares/auth.middlewares.js');
 
-router.get('/signup', restrictToGuests, (req, res) => {
-    res.render('signup&login', { login });
-})
+
+router.get('/auth/github', passport.authenticate('github', { prompt: "select_account"}));
+
+router.get(
+    "/auth/github/callback",
+    passport.authenticate("github", { session: false }),
+    (req, res) => {
+        if (!req.user) {
+            return res.status(401).json({ error: "Authentication failed" });
+        }
+        res.cookie("uid", req.user.token);
+        res.redirect('/');
+    }
+);
+
+
 router.get('/login', restrictToGuests, (req, res) => {
-    const login = true;
-    res.render('signup&login', { login });
+    res.render('login');
 })
+
 router.get('/logout', (req, res) => {
     res.clearCookie('uid');
-    res.redirect('/user/login')
+    res.redirect('/user/login');
 })
 
-router.post('/',restrictToGuests,handleUserSignup)
-router.post('/login', restrictToGuests,handleUserlogin)
-router.post('/verify', handleUserVerify)
 module.exports = router;

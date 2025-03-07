@@ -1,5 +1,5 @@
 const validator = require('validator');
-const Store_Url = require('../models/url');
+const Store_Url = require('../models/url.models.js');
 
 async function CreateCustomUrl(req,res){
 

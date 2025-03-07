@@ -1,4 +1,4 @@
-const Store_Url = require('../models/url.js');
+const Store_Url = require('../models/url.models.js');
 const shortid = require('shortid');
 const validator = require('validator');
 

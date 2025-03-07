@@ -1,13 +1,12 @@
-const Store_Url = require('../models/url.js');
+const Store_Url = require('../models/url.models.js');
 const mongoose = require('mongoose');
 
 async function getDetails(req, res) {
 
     let shorturl = req.query.url;
-    console.log(shorturl);
 
     const url = await Store_Url.findOne({ shortId: shorturl })
-    console.log(url.owner === new mongoose.Types.ObjectId(req.user.id));
+
     if (url) {
         if (url.owner.equals(new mongoose.Types.ObjectId(req.user.id))) {
             return res.status(200).json({
