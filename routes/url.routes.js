@@ -6,7 +6,7 @@ const {redirectUrl} = require('../controllers/redirectUrl.controllers.js');
 const {getDetails} = require('../controllers/getDetails.controllers.js');
 const {restrictToUserlogin} = require('../middlewares/auth.middlewares.js');
 
-router.get('/',restrictToUserlogin, (req,res)=>{
+router.get('/', (req,res)=>{
     res.render("home.ejs", {title:"home"})
 })
 

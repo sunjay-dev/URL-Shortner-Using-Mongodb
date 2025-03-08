@@ -22,7 +22,8 @@ function getURL() {
       }
     })
     .then((data) => {
-      copyurl_div.classList.remove('d-none');
+      copyurl_div.classList.remove('hidden');
+      copyurl_div.classList.add('flex');
       copy_input.value = window.origin + '/' + data.new;
     })
     .catch((error) => {
@@ -49,7 +50,8 @@ document.getElementById('Createbtn').onclick = () => {
     error_message.innerHTML = "Invalid Url...";
     error_message.style.display = "block";
     Url_input.classList.add('error');
-    copyurl_div.classList.add('d-none');
+    copyurl_div.classList.add('hidden');
+    copyurl_div.classList.remove('flex');
   }
   else
     getURL()
