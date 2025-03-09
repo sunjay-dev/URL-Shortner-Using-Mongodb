@@ -5,16 +5,16 @@
   <%- include('homePartials/head') %>
 </head>
 
-<body class="p-8 md:p-4 font-[Inter] bg-gray-50">
+<body class="md:px-8 px-6 py-2 md:p-4 font-[Inter] bg-gray-50">
   <%- include('homePartials/HomeNavbar') %>
 
-    <div class="container mx-auto mt-40 text-center">
+    <div class="mx-auto mt-16 text-center">
       <h2 class="text-3xl text-gray-600 font-bold">URL SHORTENER</h2>
       <p class="text-gray-600 mt-2.5">Paste your long URL below to generate a shorter, more manageable link.</p>
     </div>
 
     <!-- Input field and button -->
-    <div class="container mx-auto mt-10">
+    <div class="mx-auto mt-10">
       <div class="flex justify-center">
         <div class="w-full max-w-md">
           <div id="error_message" class="text-red-500 hidden"></div>
@@ -44,7 +44,13 @@
       </div>
     </div>
 
-    <div class="mt-10 text-center text-gray-500">
+    
+    <div id="RecentDivId">
+      
+    </div>
+
+
+    <div class="mt-10  text-center text-gray-500">
       © 2025 URLx. All Rights Reserved.
     </div>
 </body>

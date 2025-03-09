@@ -11,6 +11,11 @@ const urlSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    name:{
+        type: String,
+        required: true,
+        default: "Untitled"
+    },
     owner:{
         type: mongoose.SchemaTypes.ObjectId,
         ref: "User",

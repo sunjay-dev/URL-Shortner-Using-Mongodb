@@ -3,7 +3,7 @@ const router = express.Router();
 const createShortUrl = require('../controllers/createUrl.controllers.js');
 const {CreateCustomUrl} = require('../controllers/createCustomUrl.controllers.js');
 const {redirectUrl} = require('../controllers/redirectUrl.controllers.js');
-const {getDetails} = require('../controllers/getDetails.controllers.js');
+const {getDetails, getHomePageUrls} = require('../controllers/getDetails.controllers.js');
 const {restrictToUserlogin} = require('../middlewares/auth.middlewares.js');
 
 router.get('/',restrictToUserlogin, (req,res)=>{
@@ -22,6 +22,7 @@ router.get('/about', (req,res)=>{
     res.render("about.ejs", {title:"about"})
 })
 
+router.get("/api/get-urls", restrictToUserlogin ,getHomePageUrls);
 router.post('/', restrictToUserlogin, createShortUrl);
 router.post('/custom',restrictToUserlogin, CreateCustomUrl);
 router.get('/api/details/',restrictToUserlogin, getDetails)

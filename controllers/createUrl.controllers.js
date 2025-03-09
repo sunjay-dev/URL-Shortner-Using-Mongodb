@@ -11,11 +11,11 @@ async function createShortUrl(req, res) {
         return res.status(400).json({ error: "Invalid URL" });
     }
 
-    const rand = shortid.generate();
+    const rand = shortid.generate().slice(0, 7);
 
     let urlExists = await Store_Url.findOne({ shortId: rand });
     while (urlExists) {
-        rand = shortid.generate();
+        rand = shortid.generate().slice(0, 7);
         urlExists = await Store_Url.findOne({ shortId: rand });
     }
     let targeturl = /^https?:\/\//i.test(req.body.url) ? req.body.url : `https://${req.body.url}`;
@@ -24,10 +24,17 @@ async function createShortUrl(req, res) {
         shortId:rand,
         redirectUrl: targeturl,
         visitHistory:[],
-        owner: req.user.id
+        owner: req.user.id,
+        name: getDomainWithoutTLD(targeturl)
     });
 
     res.status(200).json({new : rand});
+}
+
+function getDomainWithoutTLD(url) {
+    const hostname = new URL(url).hostname.replace("www.", "");
+    const parts = hostname.split(".");
+    return parts.length > 2 ? parts.slice(0, 2).join("."): parts[0];
 }
 
 module.exports = createShortUrl;

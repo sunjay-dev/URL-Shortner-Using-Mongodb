@@ -22,4 +22,14 @@ async function getDetails(req, res) {
     res.status(404).json({ error: "Short url not exists." });
 }
 
-module.exports = { getDetails }
+async function getHomePageUrls(req, res) {
+    try {
+        const userId = req.user.id; 
+        const urls = await Store_Url.find({ owner: userId }).sort({ createdAt: -1 }).limit(5);
+        res.json(urls);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch URLs" });
+    }
+};
+
+module.exports = { getDetails, getHomePageUrls }
