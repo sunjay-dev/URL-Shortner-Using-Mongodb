@@ -5,7 +5,10 @@ let error_message = document.querySelector('#error_message');
 let lastUrls = document.getElementById('lastUrls');
 const logOutBtn = document.getElementById('logOutBtn');
 const RecentDivId = document.getElementById('RecentDivId');
-
+const copysvg = document.getElementById('copysvg');
+const ticksvg = document.getElementById('ticksvg');
+let domain = window.origin + '/';
+document.getElementById('domain').value = domain;
 function getURL() {
 
   fetch("/", {
@@ -25,7 +28,7 @@ function getURL() {
     .then((data) => {
       copyurl_div.classList.remove('hidden');
       copyurl_div.classList.add('flex');
-      copy_input.value = window.origin + '/' + data.new;
+      copy_input.value = domain + data.new;
     })
     .catch((error) => {
       error_message.innerHTML = error.message;
@@ -36,6 +39,14 @@ function getURL() {
 
 document.getElementById('copyButton').addEventListener('click', function () {
   navigator.clipboard.writeText(copy_input.value)
+  .then(() => {
+    copysvg.classList.add('hidden');
+    ticksvg.classList.remove('hidden');
+    setTimeout(() => {
+      ticksvg.classList.add('hidden');
+      copysvg.classList.remove('hidden');
+    }, 2500);
+  })
     .catch((error) => {
       console.error("Failed to copy text: ", error);
     });
@@ -82,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
     .then((data) => {
-      let domain = window.origin + '/';
+      
       if (data) {
         RecentDivId.innerHTML = `<div class="text-gray-600 w-full max-w-md  mx-auto mt-10 flex justify-between items-center p-4 pl-0">
       <h2 class="text-lg">Recent Links</h2>
