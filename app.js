@@ -24,7 +24,12 @@ const userRoutes = require('./routes/user.routes.js');
 app.use(urlRoutes);
 app.use('/user', userRoutes);
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"), { 
+    setHeaders: (res, path) => {
+        res.status(200);
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+    }
+}));
 
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));

@@ -19,7 +19,7 @@ async function createShortUrl(req, res) {
         if (urlExists) {
             return res.status(400).json({ message: "Alias is already taken" });
         } else {
-            let targeturl = /^http?:\/\//i.test(url) ? url : `https://${url}`;
+            let targeturl = /^https?:\/\//i.test(url) ? url : `https://${url}`;
 
             await Store_Url.create({
                 shortId: alias,
@@ -40,7 +40,7 @@ async function createShortUrl(req, res) {
         rand = shortid.generate().slice(0, 7);
         urlExists = await Store_Url.findOne({ shortId: rand });
     }
-    let targeturl = /^http?:\/\//i.test(url) ? url : `https://${url}`;
+    let targeturl = /^https?:\/\//i.test(url) ? url : `https://${url}`;
 
     await Store_Url.create({
         shortId: rand,

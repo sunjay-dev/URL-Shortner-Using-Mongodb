@@ -12,12 +12,12 @@ async function restrictToUserlogin(req,res,next) {
     next();
 }
 
-async function restrictToGuests(req,res,next) {
-    
-    if(req.cookies.uid)
-    return res.redirect('/');
-    
-    next();
+async function restrictToLoginedUser(req, res, next) {
+    const token = req.cookies.token;
+    if (!token) next();
+    const user = getUser(token);
+    if (user)
+        return res.redirect('/home');
 }
 
-module.exports = {restrictToUserlogin, restrictToGuests};
+module.exports = {restrictToUserlogin, restrictToLoginedUser};

@@ -40,8 +40,8 @@ async function getURL() {
     .catch((error) => {
       console.log(error);
       error_message.innerHTML = error.message;
-      error_message.style.display = "block";
-      Url_input.classList.add('error');
+      error_message.classList.remove('hidden');
+
     });
 }
 
@@ -53,7 +53,7 @@ document.getElementById('copyButton').addEventListener('click', function () {
       setTimeout(() => {
         ticksvg.classList.add('hidden');
         copysvg.classList.remove('hidden');
-      }, 2500);
+      }, 1800);
     })
     .catch((error) => {
       console.error("Failed to copy text: ", error);
@@ -64,13 +64,11 @@ document.getElementById('Createbtn').onclick = () => {
   let url = Url_input.value.trim();
   if (url === "") {
     error_message.innerHTML = "Please Enter Url...";
-    error_message.style.display = "block";
-    Url_input.classList.add('error');
+    error_message.classList.remove('hidden');
   }
   else if (!validator.isURL(url)) {
     error_message.innerHTML = "Invalid Url...";
-    error_message.style.display = "block";
-    Url_input.classList.add('error');
+    error_message.classList.remove('hidden');
     copyurl_div.classList.add('hidden');
     copyurl_div.classList.remove('flex');
   }
@@ -79,7 +77,7 @@ document.getElementById('Createbtn').onclick = () => {
 }
 
 Url_input.addEventListener('input', () => {
-  error_message.style.display = "none";
+  error_message.classList.add('hidden');
   Url_input.classList.remove('error');
 })
 
@@ -105,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (data?.length !== 0) {
         RecentDivId.innerHTML = `<div class="text-gray-600 w-full max-w-md  mx-auto mt-10 flex justify-between items-center p-4 pl-0">
       <h2 class="text-lg">Recent Links</h2>
-      <a class="hover:underline cursor-pointer">See All</a>
+      <a href="/details" target="_blank" class="hover:underline cursor-pointer">See All</a>
     </div>`;
       }
       data.forEach((url) => {
@@ -130,3 +128,16 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(error);
     });
 })
+
+document.getElementById("RecentDivId").addEventListener("click", (event) =>{
+  let clickedCard = event.target.closest(".bg-white"); 
+  if (!clickedCard) return;
+
+  let urlElement = clickedCard.querySelector(".text-blue-500");
+  if (!urlElement) return;
+
+  let url = urlElement.getAttribute("href");
+  if (!url) return;
+
+  window.location.href = `/details/?url=${url}`;
+});
