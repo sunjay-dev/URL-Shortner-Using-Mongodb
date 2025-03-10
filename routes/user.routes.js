@@ -14,7 +14,8 @@ router.get(
         if (!req.user) {
             return res.status(401).json({ error: "Authentication failed" });
         }
-        res.cookie("uid", req.user.token);
+       
+     res.cookie("uid", req.user.token)
         res.redirect('/');
     }
 );
@@ -28,6 +29,7 @@ router.get("/auth/google/callback",
         return res.status(401).json({ error: "Authentication failed" });
     }
     res.cookie("uid", req.user.token);
+
     res.redirect('/');
   }
 );

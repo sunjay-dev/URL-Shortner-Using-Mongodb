@@ -8,21 +8,28 @@ const RecentDivId = document.getElementById('RecentDivId');
 const copysvg = document.getElementById('copysvg');
 const ticksvg = document.getElementById('ticksvg');
 let domain = window.origin + '/';
+
+const Url_Alias = document.getElementById('Url_Alias');
 document.getElementById('domain').value = domain;
-function getURL() {
+
+async function getURL() {
 
   fetch("/", {
     method: "POST",
-    body: JSON.stringify({ url: Url_input.value }),
+    body: JSON.stringify({
+      url: Url_input.value,
+      alias: Url_Alias.value
+    }),
     headers: { "Content-type": "application/json; charset=UTF-8" }
   })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      } else if (res.status === 400) {
-        throw new Error('Invalid Url...');
-      } else {
-        throw new Error('An unexpected error occurred.');
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      else {
+        return response.json().then(err => {
+          throw new Error(err.message || 'An unexpected error occurred.');
+        });
       }
     })
     .then((data) => {
@@ -31,6 +38,7 @@ function getURL() {
       copy_input.value = domain + data.new;
     })
     .catch((error) => {
+      console.log(error);
       error_message.innerHTML = error.message;
       error_message.style.display = "block";
       Url_input.classList.add('error');
@@ -39,26 +47,27 @@ function getURL() {
 
 document.getElementById('copyButton').addEventListener('click', function () {
   navigator.clipboard.writeText(copy_input.value)
-  .then(() => {
-    copysvg.classList.add('hidden');
-    ticksvg.classList.remove('hidden');
-    setTimeout(() => {
-      ticksvg.classList.add('hidden');
-      copysvg.classList.remove('hidden');
-    }, 2500);
-  })
+    .then(() => {
+      copysvg.classList.add('hidden');
+      ticksvg.classList.remove('hidden');
+      setTimeout(() => {
+        ticksvg.classList.add('hidden');
+        copysvg.classList.remove('hidden');
+      }, 2500);
+    })
     .catch((error) => {
       console.error("Failed to copy text: ", error);
     });
 });
 
 document.getElementById('Createbtn').onclick = () => {
-  if (Url_input.value === "") {
+  let url = Url_input.value.trim();
+  if (url === "") {
     error_message.innerHTML = "Please Enter Url...";
     error_message.style.display = "block";
     Url_input.classList.add('error');
   }
-  else if (!validator.isURL(Url_input.value)) {
+  else if (!validator.isURL(url)) {
     error_message.innerHTML = "Invalid Url...";
     error_message.style.display = "block";
     Url_input.classList.add('error');
@@ -93,8 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
     .then((data) => {
-      
-      if (data) {
+      if (data?.length !== 0) {
         RecentDivId.innerHTML = `<div class="text-gray-600 w-full max-w-md  mx-auto mt-10 flex justify-between items-center p-4 pl-0">
       <h2 class="text-lg">Recent Links</h2>
       <a class="hover:underline cursor-pointer">See All</a>
