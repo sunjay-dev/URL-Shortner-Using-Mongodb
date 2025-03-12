@@ -6,7 +6,8 @@ async function redirectUrl(req, res, next) {
 
    if (url) {
       res.redirect(url.redirectUrl);
-      url.visitHistory.push({ timestamps: Date.now(), ipaddress: req.ip });
+      let ip = req.headers['x-forwarded-for'] || req.ip;
+      url.visitHistory.push({ timestamps: Date.now(), ipaddress: ip });
       url.save();
       return;
    }
