@@ -26,13 +26,13 @@ function getURL(Alias) {
     </p>
 
     <p class="text-gray-700 mt-2">
-        <strong class="font-medium">Total Clicks:</strong> ${data.clicks}
+        <strong class="font-medium">Total Clicks:</strong> ${data.lastOpened.length}
     </p>
 
     <p class="text-gray-700 mt-2 font-medium">Last Access Times:</p>
     <ul class="list-disc list-inside text-gray-600 mt-1">
-        ${data.lastOpened.reverse().map((time) => 
-            `<li class="text-sm">${new Date(time.timestamps).toLocaleString()}</li>`
+        ${data.lastOpened.reverse().map((value) => 
+            `<li class="text-sm">${new Date(value.timestamps).toLocaleString()} - ${value.ipaddress}</li>`
         ).join('')}
     </ul>
 </div>

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./user.models.js');
+const { isPassportNumber } = require('validator');
 
 const urlSchema = new mongoose.Schema({
     shortId: {
@@ -21,7 +22,7 @@ const urlSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    visitHistory:[{ timestamps: {type: Number}, _id: false}]
+    visitHistory:[{ timestamps: {type: Number}, _id: false, ipaddress: {type: String}}]
 }, {timestamps: true})
 
 const Store_Url = mongoose.model("url", urlSchema);

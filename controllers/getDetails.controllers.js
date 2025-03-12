@@ -11,7 +11,6 @@ async function getDetails(req, res) {
         if (url.owner.equals(new mongoose.Types.ObjectId(req.user.id))) {
             return res.status(200).json({
                 url: url.redirectUrl,
-                clicks: url.visitHistory.length,
                 lastOpened: url.visitHistory
             })
         } else {

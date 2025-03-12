@@ -6,7 +6,7 @@ async function redirectUrl(req, res, next) {
 
    if (url) {
       res.redirect(url.redirectUrl);
-      url.visitHistory.push({ timestamps: Date.now() });
+      url.visitHistory.push({ timestamps: Date.now(), ipaddress: req.ip });
       url.save();
       return;
    }
