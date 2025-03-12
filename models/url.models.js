@@ -5,25 +5,35 @@ const { isPassportNumber } = require('validator');
 const urlSchema = new mongoose.Schema({
     shortId: {
         type: String,
-        required:true,
+        required: true,
         unique: true
     },
     redirectUrl: {
         type: String,
         required: true
     },
-    name:{
+    name: {
         type: String,
         required: true,
         default: "Untitled"
     },
-    owner:{
+    owner: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "User",
         required: true
     },
-    visitHistory:[{ timestamps: {type: Number}, _id: false, ipaddress: {type: String}}]
-}, {timestamps: true})
+    visitHistory: [{
+        timestamps: { type: Number },
+        _id: false,
+        ipaddress: { type: String },
+        browser: { type: String },
+        os: { type: String },
+        device: { type: String },
+        country: { type: String },
+        city: { type: String },
+        region: { type: String }
+    }]
+}, { timestamps: true })
 
 const Store_Url = mongoose.model("url", urlSchema);
 
