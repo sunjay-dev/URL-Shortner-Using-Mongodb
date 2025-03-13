@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (data?.length !== 0) {
         RecentDivId.innerHTML = `<div class="text-gray-600 w-full max-w-md  mx-auto mt-10 flex justify-between items-center p-4 pl-0">
       <h2 class="text-lg">Recent Links</h2>
-      <a href="/details" target="_blank" class="hover:underline cursor-pointer">See All</a>
+      <a href="/urls" target="_blank" class="hover:underline cursor-pointer">See All</a>
     </div>`;
       }
       data.forEach((url) => {
