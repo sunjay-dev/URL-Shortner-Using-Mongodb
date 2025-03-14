@@ -16,7 +16,7 @@ router.get('/details', restrictToUserlogin,(req,res)=>{
     res.render("details.ejs")
 })
 
-router.get('/urls', (req,res)=>{
+router.get('/urls', restrictToUserlogin, (req,res)=>{
     res.render("urls.ejs")
 })
 
