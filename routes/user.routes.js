@@ -22,7 +22,7 @@ router.get(
      res.cookie("uid", req.user.token, {
         maxAge: 1000 * 60 * 60 * 24 * 30,
         httpOnly: true,
-        secure: true
+        secure: process.env.NODE_ENV === "production"
      });
     return res.redirect('/');
     }
@@ -39,7 +39,7 @@ router.get("/auth/google/callback",
     res.cookie("uid", restrictToLoginedUser, req.user.token, {
         maxAge: 1000 * 60 * 60 * 24 * 30,
         httpOnly: true,
-        secure: true
+        secure: process.env.NODE_ENV === "production"
      });
 
     return res.redirect('/');
