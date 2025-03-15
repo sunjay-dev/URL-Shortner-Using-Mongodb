@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const createShortUrl = require('../controllers/createUrl.controllers.js');
-const userUrls = require('../controllers/urls.controllers.js');
+const {userUrls, deleteUrl} = require('../controllers/urls.controllers.js');
 const {redirectUrl} = require('../controllers/redirectUrl.controllers.js');
 const {getDetails, getHomePageUrls} = require('../controllers/getDetails.controllers.js');
 const {restrictToUserlogin} = require('../middlewares/auth.middlewares.js');
@@ -26,5 +26,6 @@ router.get('/api/details/',restrictToUserlogin, getDetails)
 
 router.get('/api/userUrls/',restrictToUserlogin, userUrls)
 
+router.delete('/:p', restrictToUserlogin,deleteUrl)
 
 module.exports = router;

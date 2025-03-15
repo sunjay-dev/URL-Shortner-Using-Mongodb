@@ -11,5 +11,21 @@ async function userUrls(req, res) {
     }
 }
 
+async function deleteUrl(req, res){
+    const { p } = req.params;
+    try {
 
-module.exports = userUrls; 
+        const deletedUrl = await Store_Url.findOneAndDelete({ owner: req.user.id, shortId: p });
+
+        if (!deletedUrl) {
+            return res.status(404).json({ error: "URL not found or unauthorized" });
+        }
+
+        return res.status(200).json({ message: "URL deleted successfully", deletedUrl });
+
+    } catch (error) {
+        res.status(500).json({ message: "Failed to delete URL", error });
+    }
+}
+
+module.exports = {userUrls, deleteUrl}; 

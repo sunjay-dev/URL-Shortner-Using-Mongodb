@@ -11,7 +11,20 @@
     <div id="urlDiv" class="mt-4">
     <p class="text-center text-gray-500"> No urls found.</p>
     </div>
-    
+
+    <div id="myModal" class="fixed inset-0 items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+            <h2 class="text-lg font-semibold mb-4">Confirm Deletion</h2>
+            <p>Are you sure you want to delete this Short Url?</p>
+            <div class="mt-4 flex justify-end">
+                <button class="bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded"
+                    onclick="closeModal()">Cancel</button>
+                <button id="confirmDeleteButton"
+                    class="bg-red-500 text-white font-medium py-2 px-4 rounded hover:bg-red-600 ml-2">Yes,
+                    Delete</button>
+            </div>
+        </div>
+    </div>
     <%- include('partials/footer') %>
 </body>
 <script src="urls/script.js"></script>
