@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const githubPassport  = require("../services/github.auth.services.js");
 const googlePassport = require("../services/google.auth.services.js");
-const { restrictToLoginedUser } = require('../middlewares/auth.middlewares.js');
+const { restrictToUserlogin ,restrictToLoginedUser } = require('../middlewares/auth.middlewares.js');
 
 
 router.get('/login', restrictToLoginedUser, (req, res) => {
@@ -36,7 +36,7 @@ router.get("/auth/google/callback",
     if (!req.user) {
         return res.status(401).json({ error: "Authentication failed" });
     }
-    res.cookie("uid", restrictToLoginedUser, req.user.token, {
+    res.cookie("uid", req.user.token, {
         maxAge: 1000 * 60 * 60 * 24 * 30,
         httpOnly: true,
         secure: process.env.NODE_ENV === "production"
