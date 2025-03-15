@@ -3,7 +3,6 @@ let copy_input = document.getElementById('copy_input');
 let copyurl_div = document.getElementById('copyurl_div');
 let error_message = document.querySelector('#error_message');
 let lastUrls = document.getElementById('lastUrls');
-const logOutBtn = document.getElementById('logOutBtn');
 const RecentDivId = document.getElementById('RecentDivId');
 const copysvg = document.getElementById('copysvg');
 const ticksvg = document.getElementById('ticksvg');
@@ -88,7 +87,6 @@ Url_input.addEventListener('keypress', (e) => {
   }
 })
 
-document.getElementById('logOutBtn').onclick = () => window.location.href = `${window.location.origin}/user/logout`;
 
 document.addEventListener('DOMContentLoaded', () => {
   fetch("/api/get-urls")

@@ -14,9 +14,12 @@ async function restrictToUserlogin(req,res,next) {
 
 async function restrictToLoginedUser(req, res, next) {
     const token = req.cookies?.uid;
-    if (!token) next();
+    if (!token) 
+    return next();
     const user = getUser(token);
-    if (user)
+    if (!user)
+    return next();
+
     return res.redirect('/');
 }
 

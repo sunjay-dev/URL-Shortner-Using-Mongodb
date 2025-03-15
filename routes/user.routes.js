@@ -30,7 +30,7 @@ router.get(
 
 router.get("/auth/google", restrictToLoginedUser, googlePassport.authenticate("google", { prompt: "select_account"}));
 
-router.get("/auth/google/callback",
+router.get("/auth/google/callback", restrictToLoginedUser, 
   googlePassport.authenticate("google", { session: false }),
   (req, res) => {
     if (!req.user) {
@@ -48,7 +48,7 @@ router.get("/auth/google/callback",
 
 router.get('/logout', (req, res) => {
     res.clearCookie('uid');
-    res.redirect('/user/login');
+    res.status(200).redirect('/user/login');
 })
 
 module.exports = router;

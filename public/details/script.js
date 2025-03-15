@@ -106,8 +106,6 @@ document.getElementById('detailsbtn').onclick = () => {
     getURL(getAlias())
 }
 
-document.getElementById('logOutBtn').onclick = () =>	window.location.href=`${window.location.origin}/user/logout`;
-
 document.addEventListener('DOMContentLoaded', () => {
 
   const urlParams = new URLSearchParams(window.location.search);
