@@ -1,0 +1,26 @@
+# Node modules (don’t copy your host’s node_modules)
+node_modules
+npm-debug.log
+
+# Environment variables
+.env
+.env.local
+.env.test
+.env.production
+
+# Logs
+logs
+*.log
+
+# OS / Editor junk
+.DS_Store
+.vscode
+.idea
+
+# Git
+.git
+.gitignore
+
+# Docker itself
+Dockerfile
+.dockerignore

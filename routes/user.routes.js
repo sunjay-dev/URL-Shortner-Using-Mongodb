@@ -47,6 +47,7 @@ router.get("/auth/google/callback", restrictToLoginedUser,
 );
 
 router.get('/logout', (req, res) => {
+    res.setHeader("Cache-Control", "no-store");
     res.clearCookie('uid');
     res.status(200).redirect('/user/login');
 })
