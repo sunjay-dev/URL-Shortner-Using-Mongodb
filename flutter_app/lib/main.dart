@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/details.screen.dart';
+import 'package:flutter_app/screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/signup_screen.dart';
 
@@ -15,15 +17,18 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'URL Shortener App',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white10,
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffffbf00)),
         useMaterial3: true,
       ),
-      initialRoute: '/signup',
+      initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/details': (context) => const DetailsScreen(longUrl: "hello", shortUrl: "https://sunjay.xyz/abc123")
       },
     );
   }
 }
+ 

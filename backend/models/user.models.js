@@ -6,16 +6,25 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     email: {
-        type: String, 
-        sparse: true
+        type: String,
+        unique: true,
+        index: true
+    },
+    password: {
+        type: String,
     },
     profilePicture: {
         type: String
     },
     providers: [
         {
-            provider: { type: String, required: true, enum: ["github", "google"] },
-            providerId: { type: String, required: true, unique: true }
+            provider: { 
+                type: String, 
+                required: true, 
+                enum: ["local", "github", "google"],
+                default: "local"
+             },
+            providerId: { type: String, unique: true }
         }
     ]
 }, { timestamps: true });
