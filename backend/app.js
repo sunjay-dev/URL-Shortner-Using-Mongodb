@@ -5,24 +5,31 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const connectToMongoDB = require('./connection.js');
 const passport = require('passport');
+const cors = require("cors");
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.set('trust proxy', true);
 
 connectToMongoDB(process.env.MONGODB_URI).then(() => {
     console.log('Mongoose connected!')
 })
 app.use(passport.initialize());
 
-app.set('trust proxy', true);
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser())
-
 app.set('view engine', 'ejs');
 app.set('views', path.resolve("./views"));
+
+app.use((req, res, next) => {
+  console.log(req.method, req.url, req.body);
+  next();
+});
 
 const urlRoutes = require('./routes/url.routes.js');
 const userRoutes = require('./routes/user.routes.js');
 
-app.use(urlRoutes);
+app.use('/', urlRoutes);
 app.use('/user', userRoutes);
 
 app.use(express.static(path.join(__dirname, "public"), { 
@@ -38,4 +45,4 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 9000;
 
-app.listen(PORT, () => { console.log(`App running on :${PORT}`); })
+app.listen(PORT, () => { console.log(`App running on PORT: ${PORT}`); })

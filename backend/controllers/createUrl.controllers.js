@@ -33,7 +33,7 @@ async function createShortUrl(req, res) {
         }
     }
 
-    const rand = shortid.generate().slice(0, 7);
+    let rand = shortid.generate().slice(0, 7);
 
     let urlExists = await Store_Url.findOne({ shortId: rand });
     while (urlExists) {

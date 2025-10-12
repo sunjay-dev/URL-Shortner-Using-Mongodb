@@ -9,7 +9,7 @@ async function redirectUrl(req, res, next) {
 
       res.redirect(url.redirectUrl);
 
-      let ip = req.headers['x-forwarded-for'] || req.ip;
+      let ip = req.headers['x-forwarded-for'] || req.ip || req.socket.remoteAddress;
       let agent = useragent.parse(req.headers['user-agent']);
 
       let country = "Unknown", city = "Unknown", region = "Unknown";

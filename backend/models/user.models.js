@@ -22,9 +22,8 @@ const userSchema = new mongoose.Schema({
                 type: String, 
                 required: true, 
                 enum: ["local", "github", "google"],
-                default: "local"
              },
-            providerId: { type: String, unique: true }
+            providerId: { type: String }
         }
     ]
 }, { timestamps: true });

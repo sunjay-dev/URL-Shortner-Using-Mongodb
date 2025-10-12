@@ -3,6 +3,7 @@ const router = express.Router();
 const githubPassport  = require("../services/github.auth.services.js");
 const googlePassport = require("../services/google.auth.services.js");
 const { restrictToLoginedUser } = require('../middlewares/auth.middlewares.js');
+const { handleUserLoginWithPassword, handleUserSignUpWithPassword } = require('../controllers/user.controllers.js');
 
 
 router.get('/login', restrictToLoginedUser, (req, res) => {
@@ -46,7 +47,8 @@ router.get("/auth/google/callback", restrictToLoginedUser,
   }
 );
 
-router.post('/login', )
+router.post('/login', handleUserLoginWithPassword);
+router.post('/signup', handleUserSignUpWithPassword);
 
 router.get('/logout', (req, res) => {
     res.setHeader("Cache-Control", "no-store");

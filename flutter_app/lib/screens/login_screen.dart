@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,8 +16,27 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   final formkey = GlobalKey<FormState>();
 
+  Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('JWT_TOKEN');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkToken();
+  }
+
+  void checkToken() async {
+    final token = await getToken();
+    print(token);
+    if (token != null && token.isNotEmpty) {
+      Navigator.pushReplacementNamed(context, '/home');
+    }
+  }
+
   void handleLogin() async {
-    if (formkey.currentState!.validate()) {
+    if (!formkey.currentState!.validate()) {
       return;
     }
     final email = emailController.text.trim();
@@ -24,23 +44,29 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:9000/login'),
+        Uri.parse('http://localhost:9000/user/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email, 'password': password}),
       );
 
+      final data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        print('✅ Login successful: $data');
+        final token = data['token'];
+
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('JWT_TOKEN', token);
+
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Login successful!')));
 
         Navigator.pushReplacementNamed(context, '/home');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: ${response.body}')),
+          SnackBar(content: Text('Login failed: ${data["message"]}')),
         );
       }
     } catch (error) {
-      print('error: $error');
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Network error: $error')));
@@ -74,10 +100,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Color(0xffffbf00),
                 ),
               ),
+
               SizedBox(height: 30),
+
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Email',
                   hintText: 'Enter here',
                   border: OutlineInputBorder(),
@@ -89,11 +117,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+
+              SizedBox(height: 16),
+
               TextFormField(
                 controller: passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Password',
                   hintText: 'Enter here',
                   border: OutlineInputBorder(),
@@ -105,30 +135,35 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
+
+              SizedBox(height: 20),
+
               ElevatedButton(
                 onPressed: handleLogin,
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
+                  minimumSize: Size(double.infinity, 50),
                   backgroundColor: Color(0xffffbf00),
                   foregroundColor: Colors.black,
                 ),
-                child: const Text('Login'),
+                child: Text('Login'),
               ),
-              const SizedBox(height: 10),
+
+              SizedBox(height: 10),
               OutlinedButton(
                 onPressed: handleGoogleLogin,
                 style: OutlinedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
+                  minimumSize: Size(double.infinity, 50),
                 ),
-                child: const Text('Continue with Google'),
+                child: Text('Continue with Google'),
               ),
-              const SizedBox(height: 10),
+
+              SizedBox(height: 10),
+
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/signup');
                 },
-                child: const Text("Don't have an account? Sign up"),
+                child: Text("Don't have an account? Sign up"),
               ),
             ],
           ),
