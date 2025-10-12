@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/copy_container.dart';
 import 'package:flutter_app/screens/details.screen.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,16 +14,63 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    checkToken();
+  }
+
+  Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('JWT_TOKEN');
+  }
+
+  void checkToken() async {
+    final token = await getToken();
+
+    if (token == null || token.isEmpty) {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
+  }
+
   final TextEditingController _urlController = TextEditingController();
+  String? shortUrl = "http://localhost:9000/jsjsj";
   final formkey = GlobalKey<FormState>();
 
   void handleShortURL() async {
-    final url = _urlController.text;
-
     if (!formkey.currentState!.validate()) {
       return;
     }
-    print(url);
+
+    final url = _urlController.text;
+    final prefs = await SharedPreferences.getInstance();
+
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:9000/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': 'Bearer ${prefs.getString('JWT_TOKEN')}',
+        },
+        body: jsonEncode({'url': url}),
+      );
+
+      final data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        setState(() {
+          shortUrl = "http://localhost:9000/${data["new"]}";
+        });
+        _urlController.clear();
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('${data["message"]}')));
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Network error: $error')));
+    }
   }
 
   void handleLogout() async {
@@ -103,8 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   prefixIcon: Icon(Icons.link),
                 ),
                 validator: (value) {
-                  if (!value!.startsWith("http://") ||
-                      !value.startsWith("https://")) {
+                  if (!value!.startsWith("http")) {
                     return "Please enter a valid url.";
                   }
                   return null;
@@ -125,6 +175,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Text("Shorten URL"),
               ),
+
+              SizedBox(height: 20),
+
+              if (shortUrl != null) CopyContainer(shortUrl: shortUrl!),
             ],
           ),
         ),

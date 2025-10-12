@@ -1,26 +1,48 @@
-const {getUser} = require('../services/auth.services.js');
+const { getUser } = require('../services/auth.services.js');
 
-async function restrictToUserlogin(req,res,next) {
+async function restrictToUserLogin(req, res, next) {
     const uid = req.cookies?.uid;
+    const authHeader = req.headers['authorization'] || req.headers['Authorization'];
+    try {
+        if (uid) {
+            const user = getUser(uid);
+            if (!user) return res.redirect('/user/login');
+            req.user = user;
+            return next();
+        }
 
-    if(!uid) return res.redirect('/user/login');
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+            const token = authHeader.split(' ')[1];
+            try {
+                const user = getUser(token);
+                if (!user) return res.status(401).json({ message: 'Invalid token' });
+                req.user = user;
+                return next();
+            } catch (err) {
+                return res.status(401).json({ message: 'Invalid or expired token' });
+            }
+        }
 
-    const user = getUser(uid);
-    if(!user) return res.redirect('/user/login');
-
-    req.user=user;
-    next();
+        if (req.headers.accept?.includes('text/html')) {
+            return res.redirect('/user/login');
+        } else {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('Server error');
+    }
 }
 
 async function restrictToLoginedUser(req, res, next) {
     const token = req.cookies?.uid;
-    if (!token) 
-    return next();
+    if (!token)
+        return next();
     const user = getUser(token);
     if (!user)
-    return next();
+        return next();
 
     return res.redirect('/');
 }
 
-module.exports = {restrictToUserlogin, restrictToLoginedUser};
+module.exports = { restrictToUserLogin, restrictToLoginedUser };
