@@ -34,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   final TextEditingController _urlController = TextEditingController();
-  String? shortUrl = "http://localhost:9000/jsjsj";
+  final TextEditingController _aliasController = TextEditingController();
+  String? shortUrl;
   final formkey = GlobalKey<FormState>();
 
   void handleShortURL() async {
@@ -43,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     final url = _urlController.text;
+    final alias = _aliasController.text;
     final prefs = await SharedPreferences.getInstance();
 
     try {
@@ -52,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'Content-Type': 'application/json',
           'authorization': 'Bearer ${prefs.getString('JWT_TOKEN')}',
         },
-        body: jsonEncode({'url': url}),
+        body: jsonEncode({'url': url, 'alias': alias}),
       );
 
       final data = jsonDecode(response.body);
@@ -61,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
           shortUrl = "http://localhost:9000/${data["new"]}";
         });
         _urlController.clear();
+        _aliasController.clear();
       } else {
         ScaffoldMessenger.of(
           context,
@@ -159,6 +162,68 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   return null;
                 },
+              ),
+
+              SizedBox(height: 20),
+
+              Row(
+                children: [
+                  // Left Input (Readonly URL)
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          bottomLeft: Radius.circular(8),
+                        ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
+                        child: Text(
+                          "https://go.sunjay.xyz/",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Right Input (Alias)
+                  Expanded(
+                    flex: 2,
+                    child: TextFormField(
+                      controller: _aliasController,
+                      decoration: InputDecoration(
+                        hintText: "Enter Alias",
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey.shade200),
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            width: 2,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
 
               SizedBox(height: 20),
