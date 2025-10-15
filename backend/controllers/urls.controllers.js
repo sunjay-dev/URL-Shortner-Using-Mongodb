@@ -2,8 +2,8 @@ const Store_Url = require('../models/url.models.js');
 
 async function userUrls(req, res) {
 
+    const userId = req.user.id; 
     try {
-        const userId = req.user.id; 
         const urls = await Store_Url.find({ owner: userId }).sort({ createdAt: -1 });
         res.status(200).json(urls);
     } catch (error) {

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/copy_container.dart';
-import 'package:flutter_app/screens/details.screen.dart';
+import 'package:flutter_app/widgets/copy_container.dart';
+import 'package:flutter_app/widgets/app_drawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -76,60 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void handleLogout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('JWT_TOKEN');
-
-    Navigator.pushReplacementNamed(context, '/login');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Home"), centerTitle: true),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            SizedBox(height: 30),
-
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
-              onTap: () {},
-            ),
-
-            ListTile(
-              leading: Icon(Icons.link),
-              title: Text("Urls"),
-              onTap: () {},
-            ),
-
-            ListTile(
-              leading: Icon(Icons.insert_chart),
-              title: Text("Details"),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailsScreen(
-                      longUrl: _urlController.text,
-                      shortUrl:
-                          "https://sunjay.xyz/abc123", // mock short link for now
-                    ),
-                  ),
-                );
-              },
-            ),
-
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("Logout"),
-              onTap: handleLogout,
-            ),
-          ],
-        ),
-      ),
-
+     drawer: AppDrawer(),
       body: Form(
         key: formkey,
         child: Padding(
