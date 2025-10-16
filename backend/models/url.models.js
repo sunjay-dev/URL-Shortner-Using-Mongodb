@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const User = require('./user.models.js');
-const { isPassportNumber } = require('validator');
 
 const urlSchema = new mongoose.Schema({
     shortId: {

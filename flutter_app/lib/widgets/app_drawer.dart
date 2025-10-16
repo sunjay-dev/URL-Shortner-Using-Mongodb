@@ -40,15 +40,6 @@ class AppDrawer extends StatelessWidget {
             },
           ),
 
-          ListTile(
-            leading: const Icon(Icons.insert_chart),
-            title: const Text("Details"),
-            onTap: () {
-               Navigator.pop(context);
-              Navigator.pushNamed(context, '/details');
-            },
-          ),
-
           const Divider(),
 
           ListTile(

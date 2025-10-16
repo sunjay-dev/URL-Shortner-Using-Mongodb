@@ -29,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void checkToken() async {
     final token = await getToken();
-    print(token);
     if (token != null && token.isNotEmpty) {
       Navigator.pushReplacementNamed(context, '/home');
     }
@@ -71,11 +70,6 @@ class _LoginScreenState extends State<LoginScreen> {
         context,
       ).showSnackBar(SnackBar(content: Text('Network error: $error')));
     }
-  }
-
-  void handleGoogleLogin() {
-    print('Login with Google');
-    // TODO: open your backend Google auth URL with flutter_web_auth
   }
 
   @override
@@ -146,15 +140,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   foregroundColor: Colors.black,
                 ),
                 child: Text('Login'),
-              ),
-
-              SizedBox(height: 10),
-              OutlinedButton(
-                onPressed: handleGoogleLogin,
-                style: OutlinedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50),
-                ),
-                child: Text('Continue with Google'),
               ),
 
               SizedBox(height: 10),

@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_app/widgets/copy_container.dart';
+import 'package:flutter_app/widgets/visit_history_table.dart';
 
 class DetailsScreen extends StatelessWidget {
-  final String longUrl;
-  final String shortUrl;
+  final Map<String, dynamic> url;
 
-  const DetailsScreen({
-    super.key,
-    required this.longUrl,
-    required this.shortUrl,
-  });
+  const DetailsScreen({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -22,65 +18,45 @@ class DetailsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 20),
-            const Text(
-              "Original URL:",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(10),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 20),
+              const Text(
+                "Original URL:",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
-              child: Text(
-                longUrl,
-                style: const TextStyle(color: Colors.black87),
+              const SizedBox(height: 8),
+              CopyContainer(url: url["redirectUrl"]),
+
+              const SizedBox(height: 30),
+              const Text(
+                "Shortened URL:",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
-            ),
-            const SizedBox(height: 30),
-            const Text(
-              "Shortened URL:",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(10),
+              const SizedBox(height: 8),
+              CopyContainer(url: "https://sunjay.xyz/${url["shortId"]}"),
+
+              const SizedBox(height: 30),
+              const Text(
+                "Visit History:",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      shortUrl,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+              const SizedBox(height: 8),
+
+              // Table with fixed height and horizontal scrolling
+              SizedBox(
+                height: 300, // adjust as needed
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: VisitHistoryTable(
+                    visitHistory: url['visitHistory'] ?? [],
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Clipboard.setData(ClipboardData(text: shortUrl));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Short URL copied!"),
-                          duration: Duration(seconds: 1),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.copy, color: Color(0xffffbf00)),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

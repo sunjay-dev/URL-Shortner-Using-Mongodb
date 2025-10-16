@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CopyContainer extends StatelessWidget {
-  final String shortUrl;
+  final String url;
 
-  const CopyContainer({super.key, required this.shortUrl});
+  const CopyContainer({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class CopyContainer extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              shortUrl,
+              url,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -27,7 +27,7 @@ class CopyContainer extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              Clipboard.setData(ClipboardData(text: shortUrl));
+              Clipboard.setData(ClipboardData(text: url));
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text("Short URL copied!"),

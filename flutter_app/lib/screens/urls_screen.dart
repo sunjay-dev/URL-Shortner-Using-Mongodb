@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/widgets/app_drawer.dart';
-import 'package:flutter_app/widgets/urlListTile.dart';
+import 'package:flutter_app/widgets/url_list_tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 

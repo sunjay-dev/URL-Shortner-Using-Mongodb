@@ -23,10 +23,7 @@ class UrlListTile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailsScreen(
-                longUrl: url["redirectUrl"],
-                shortUrl: "http://localhost:9000/$shortUrl",
-              ),
+              builder: (context) => DetailsScreen(url: url),
             ),
           );
         },

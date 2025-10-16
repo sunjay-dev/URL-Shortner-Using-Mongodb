@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/widgets/copy_container.dart';
 import 'package:flutter_app/widgets/app_drawer.dart';
@@ -194,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               SizedBox(height: 20),
 
-              if (shortUrl != null) CopyContainer(shortUrl: shortUrl!),
+              if (shortUrl != null) CopyContainer(url: shortUrl!),
             ],
           ),
         ),

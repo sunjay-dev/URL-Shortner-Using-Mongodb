@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/details.screen.dart';
 import 'package:flutter_app/screens/home_screen.dart';
 import 'package:flutter_app/screens/urls_screen.dart';
 import 'screens/login_screen.dart';
@@ -26,7 +25,6 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
         '/home': (context) => const HomeScreen(),
-        '/details': (context) => const DetailsScreen(longUrl: "hello", shortUrl: "https://sunjay.xyz/abc123"),
         '/urls': (context) => const UrlsScreen()
       },
     );
