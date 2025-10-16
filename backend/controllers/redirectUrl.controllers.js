@@ -1,7 +1,7 @@
 const Store_Url = require('../models/url.models.js');
 const useragent = require('useragent');
-async function redirectUrl(req, res, next) {
-   
+
+module.exports.redirectUrl = async (req, res, next)  => {
    try {
       const url = await Store_Url.findOne({ shortId: req.params.p });
 
@@ -43,5 +43,3 @@ async function redirectUrl(req, res, next) {
       next();
    }
 }
-
-module.exports = { redirectUrl }

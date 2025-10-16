@@ -17,8 +17,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'URL Shortener App',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white10,
+        scaffoldBackgroundColor: Colors.grey[50],
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffffbf00)),
+        brightness: Brightness.light,
       ),
       initialRoute: '/login',
       routes: {

@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:9000/user/login'),
+        Uri.parse('https://go.sunjay.xyz/user/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email, 'password': password}),
       );
@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset("assets/images/logo.png"),
-        backgroundColor: Colors.white10,
+        backgroundColor: Colors.grey[50],
       ),
       body: Form(
         key: formkey,

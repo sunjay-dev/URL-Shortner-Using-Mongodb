@@ -1,6 +1,6 @@
 const { getUser } = require('../services/auth.services.js');
 
-async function restrictToUserLogin(req, res, next) {
+module.exports.restrictToUserLogin = async (req, res, next) => {
     const uid = req.cookies?.uid;
     const authHeader = req.headers['authorization'] || req.headers['Authorization'];
     try {
@@ -34,7 +34,7 @@ async function restrictToUserLogin(req, res, next) {
     }
 }
 
-async function restrictToLoginedUser(req, res, next) {
+module.exports.restrictToLoginedUser = (req, res, next) => {
     const token = req.cookies?.uid;
     if (!token)
         return next();
@@ -44,5 +44,3 @@ async function restrictToLoginedUser(req, res, next) {
 
     return res.redirect('/');
 }
-
-module.exports = { restrictToUserLogin, restrictToLoginedUser };

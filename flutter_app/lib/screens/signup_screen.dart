@@ -47,7 +47,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:9000/user/signup'),
+        Uri.parse('https://go.sunjay.xyz/user/signup'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': userName,
@@ -85,7 +85,7 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset("assets/images/logo.png"),
-        backgroundColor: Colors.white10,
+        backgroundColor: Colors.grey[50],
       ),
       body: Form(
         key: formkey,

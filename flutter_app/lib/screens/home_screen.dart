@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:9000/'),
+        Uri.parse('https://go.sunjay.xyz/'),
         headers: {
           'Content-Type': 'application/json',
           'authorization': 'Bearer ${prefs.getString('JWT_TOKEN')}',
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         setState(() {
-          shortUrl = "http://localhost:9000/${data["new"]}";
+          shortUrl = "https://go.sunjay.xyz/${data["new"]}";
         });
         _urlController.clear();
         _aliasController.clear();

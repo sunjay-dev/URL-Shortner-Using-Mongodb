@@ -1,4 +1,3 @@
-require('dotenv').config();
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const User = require("../models/user.models.js");
@@ -17,14 +16,12 @@ passport.use(new GitHubStrategy(
       let user = await User.findOne({ email });
 
       if (user) {
-        // Check if GitHub is already linked
         const githubProvider = user.providers.find(p => p.provider === "github");
         if (!githubProvider) {
           user.providers.push({ provider: "github", providerId: profile.id });
           await user.save();
         }
       } else {
-        // If no user exists, create a new one
         user = await User.create({
           username: profile.username,
           email,

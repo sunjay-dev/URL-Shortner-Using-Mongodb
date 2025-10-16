@@ -74,7 +74,7 @@ class UrlListSection extends StatelessWidget {
 
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:9000/api/userUrls/'),
+        Uri.parse('https://go.sunjay.xyz/api/userUrls/'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -88,7 +88,6 @@ class UrlListSection extends StatelessWidget {
         throw Exception("Failed to fetch URLs (${response.statusCode})");
       }
     } catch (e) {
-      debugPrint("Error fetching URLs: $e");
       throw Exception("Network error occurred");
     }
   }

@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const githubPassport  = require("../services/github.auth.services.js");
 const googlePassport = require("../services/google.auth.services.js");
 const { restrictToLoginedUser } = require('../middlewares/auth.middlewares.js');
@@ -8,7 +7,7 @@ const { handleUserLoginWithPassword, handleUserSignUpWithPassword } = require('.
 
 router.get('/login', restrictToLoginedUser, (req, res) => {
     res.render('login');
-})
+});
 
 router.get('/auth/github', restrictToLoginedUser, githubPassport.authenticate('github', { prompt: "select_account"}));
 
@@ -54,6 +53,6 @@ router.get('/logout', (req, res) => {
     res.setHeader("Cache-Control", "no-store");
     res.clearCookie('uid');
     res.status(200).redirect('/user/login');
-})
+});
 
 module.exports = router;

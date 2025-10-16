@@ -35,7 +35,7 @@ module.exports.handleUserLoginWithPassword = async (req, res) => {
         res.status(200).json({
             token,
             message: "Login successful"
-        })
+        });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Something went wrong, please try again later" });
