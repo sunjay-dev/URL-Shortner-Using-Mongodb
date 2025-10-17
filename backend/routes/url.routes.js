@@ -20,8 +20,8 @@ router.get('/urls', restrictToUserLogin, (req, res) => {
 });
 
 router.get("/api/get-urls", restrictToUserLogin, getHomePageUrls);
-router.get('/api/details/', restrictToUserLogin, getDetails);
-router.get('/api/userUrls/', restrictToUserLogin, userUrls);
+router.get('/api/details', restrictToUserLogin, getDetails);
+router.get('/api/userUrls', restrictToUserLogin, userUrls);
 
 router.post('/', restrictToUserLogin, createShortUrl);
 

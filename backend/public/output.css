@@ -1162,6 +1162,26 @@ video {
   transition-duration: 150ms;
 }
 
+button {
+  cursor: pointer;
+}
+
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+       user-select: none;
+}
+
+::-moz-selection {
+  background-color: rgb(255 193 7);
+  color: black;
+}
+
+::selection {
+  background-color: rgb(255 193 7);
+  color: black;
+}
+
 .hover\:bg-\[\#bebdbd\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(190 189 189 / var(--tw-bg-opacity, 1));

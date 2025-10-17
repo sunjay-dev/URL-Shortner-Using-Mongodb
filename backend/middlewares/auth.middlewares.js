@@ -24,9 +24,9 @@ module.exports.restrictToUserLogin = async (req, res, next) => {
         }
 
         if (req.headers.accept?.includes('text/html')) {
-            return res.redirect('/user/login');
+            res.redirect('/user/login');
         } else {
-            return res.status(401).json({ message: 'Unauthorized' });
+            res.status(401).json({ message: 'Unauthorized' });
         }
     } catch (err) {
         console.error(err);
@@ -42,5 +42,5 @@ module.exports.restrictToLoginedUser = (req, res, next) => {
     if (!user)
         return next();
 
-    return res.redirect('/');
+    res.redirect('/');
 }

@@ -1,6 +1,6 @@
 let Url_input = document.getElementById('Url');
 let error_message = document.querySelector('#error_message');
-var dae;
+
 function getURL(Alias) {
   fetch(`/api/details?url=${Alias}`)
     .then((res) => {

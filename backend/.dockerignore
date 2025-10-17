@@ -1,26 +1,38 @@
-# Node modules (don’t copy your host’s node_modules)
-node_modules
-npm-debug.log
+# Include any files or directories that you don't want to be copied to your
+# container here (e.g., local build artifacts, temporary files, etc.).
+#
+# For more help, visit the .dockerignore file reference guide at
+# https://docs.docker.com/go/build-context-dockerignore/
 
-# Environment variables
-.env
-.env.local
-.env.test
-.env.production
-
-# Logs
-logs
-*.log
-
-# OS / Editor junk
-.DS_Store
-.vscode
-.idea
-
-# Git
-.git
-.gitignore
-
-# Docker itself
-Dockerfile
-.dockerignore
+**/.classpath
+**/.dockerignore
+**/.env
+**/.env.example
+**/.git
+**/.gitignore
+**/.project
+**/.settings
+**/.toolstarget
+**/.vs
+**/.vscode
+**/.next
+**/.cache
+**/*.*proj.user
+**/*.dbmdl
+**/*.jfm
+**/charts
+**/docker-compose*
+**/compose.y*ml
+**/Dockerfile*
+**/node_modules
+**/npm-debug.log
+**/obj
+**/secrets.dev.yaml
+**/values.dev.yaml
+**/build
+**/dist
+**/src
+LICENSE
+README.md
+**/vercel.json
+**/tailwind.config.js

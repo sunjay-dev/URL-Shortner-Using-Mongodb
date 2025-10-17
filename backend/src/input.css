@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button {
+    cursor: pointer;
+}
+
+img {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+::selection {
+  background-color: rgb(255 193 7);
+  color: black;
+}

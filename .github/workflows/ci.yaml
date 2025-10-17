@@ -3,7 +3,8 @@ name: Build Flutter APK
 on:
   push:
     branches:
-      - flutter-app
+      - main
+      - flutter
 
 jobs:
   build:

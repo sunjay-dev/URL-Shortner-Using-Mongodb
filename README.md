@@ -15,7 +15,9 @@ A simple URL shortener built with Node.js and Express.js that stores shortened U
 ![EJS](https://img.shields.io/badge/ejs-%23B4CA65.svg?style=for-the-badge&logo=ejs&logoColor=black) 
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) 
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) 
-![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=flutter&logoColor=white)
+
 - Express + Node.js
 - shortid (For creating short id for url)
 - Mongoose (For Storage)
@@ -41,7 +43,7 @@ Create a `.env` file in the root directory and add the following:
 ```env
 PORT=9000
 JWT_SECRET=JWT_SECRET
-mongoUri=MONGODB_URL
+MONGODB_URI=MONGODB_URL
 GITHUB_CLIENT_ID=GITHUB_CLIENT_ID
 GITHUB_CLIENT_SECRET=GITHUB_CLIENT_SECRET
 GITHUB_CALLBACK_URL=http://localhost:9000/user/auth/github/callback
@@ -85,8 +87,6 @@ The application provides the following routes:
 - **Response**:
   - On success, returns a JSON object containing number of click, original url, and array of lastOpened times.
   - If the short ID does not exist, returns a 404 error.
-
-
 
 
 ## Contributing
